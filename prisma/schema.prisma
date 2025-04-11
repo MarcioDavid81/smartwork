@@ -89,16 +89,16 @@ model EpiExit {
 }
 
 model MedicalExam {
-  id         Int      @id @default(autoincrement())
+  id         Int        @id @default(autoincrement())
   date       DateTime
   type       String
   result     String?
   expiration DateTime
-  employee   Employee @relation(fields: [employeeId], references: [id])
+  employee   Employee   @relation(fields: [employeeId], references: [id])
   employeeId Int
   userId     String
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
 }
 
 enum Employer {
@@ -127,9 +127,4 @@ enum Function {
 enum Status {
   Ativo
   Inativo
-}
-
-enum ExamStatus {
-  Valido
-  Vencido
 }
