@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Employee {
+  id           Int           @id @default(autoincrement())
+  name         String
+  adress       String
+  city         String
+  email        String        @unique
+  phone        String        @unique
+  birthDate    DateTime
+  admission    DateTime
+  cpf          String        @unique
+  rg           String        @unique
+  employer     Employer
+  department   Department
+  function     Function
+  status       Status
+  userId       String
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+  epies        EpiEmployee[]
+  exits        EpiExit[]
+  medicalExams MedicalExam[]
+}
+
+model Epi {
+  id            Int           @id @default(autoincrement())
+  name          String
+  description   String
+  certification String
+  supplier      String
+  expiration    DateTime
+  quantity      Int
+  userId        String
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  employees     EpiEmployee[]
+  entries       EpiEntry[]
+  exits         EpiExit[]
+}
+
+model EpiEmployee {
+  id           Int      @id @default(autoincrement())
+  epi          Epi      @relation(fields: [epiId], references: [id])
+  epiId        Int
+  employee     Employee @relation(fields: [employeeId], references: [id])
+  employeeId   Int
+  quantity     Int
+  userId       String
+  deliveryDate DateTime @default(now())
+}
+
+model EpiEntry {
+  id        Int      @id @default(autoincrement())
+  epi       Epi      @relation(fields: [epiId], references: [id])
+  epiId     Int
+  quantity  Int
+  date      DateTime @default(now())
+  note      String?
+  supplier  String?
+  userId    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model EpiExit {
+  id         Int      @id @default(autoincrement())
+  epi        Epi      @relation(fields: [epiId], references: [id])
+  epiId      Int
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  employeeId Int
+  quantity   Int
+  userId     String
+  date       DateTime @default(now())
+  createdAt  DateTime @default(now())
+}
+
+model MedicalExam {
+  id         Int      @id @default(autoincrement())
+  date       DateTime
+  type       String
+  result     String?
+  expiration DateTime
+  employee   Employee @relation(fields: [employeeId], references: [id])
+  employeeId Int
+  userId     String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum Employer {
+  Glenio
+  Guilhermo
+  Vagner
+  Valmor
+  Werner
+}
+
+enum Department {
+  Pinheirinhos
+  Unidade
+  Guajuvira
+  Cidade
+}
+
+enum Function {
+  Agricola
+  Motorista
+  Gerais
+  Operador
+  Administrativo
+}
+
+enum Status {
+  Ativo
+  Inativo
+}
+
+enum ExamStatus {
+  Valido
+  Vencido
+}
