@@ -97,8 +97,7 @@ export async function generateEmployeeReport(filters: ReportFilters) {
         didDrawPage: (data) => {
           const pageSize = doc.internal.pageSize;
           const pageHeight = pageSize.height || pageSize.getHeight();
-          const pageWidth = pageSize.width || pageSize.getWidth();
-        
+          const pageWidth = pageSize.width || pageSize.getWidth();        
           const pageNumber = doc.getCurrentPageInfo();
         
           doc.setFontSize(10);
@@ -110,6 +109,7 @@ export async function generateEmployeeReport(filters: ReportFilters) {
             data.settings.margin.left,
             pageHeight - 10
           );
+
         
           const date = format(new Date(), "dd/MM/yyyy", { timeZone });
           doc.text(
