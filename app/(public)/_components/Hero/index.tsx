@@ -9,10 +9,11 @@ const Hero = () => {
           <div className="relative flex items-center  h-screen overflow-hidden z-10 bg-secondary hero">
             {/* Overlay de background */}
             <div className="absolute inset-0 bg-[#78b49a] opacity-50 z-20"></div>
-            <div className="container flex flex-col items-start gap-4 z-30">
-              <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold text-white">
-                Smart Work <span className="block text-xl md:text-3xl lg:text-5xl">Sistema de Gestão da Saúde Ocupacional</span>
+            <div className="container flex flex-col items-center md:items-start gap-4 z-30">
+              <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold text-gray-50">
+                Smart Work 
               </h1>
+              <span className="block text-xl md:text-3xl lg:text-5xl text-gray-50">Sistema de Gestão da Saúde Ocupacional</span>
               <div className="mt-10">
                 <Link href="https://www.wa.me/5555997116476" target="_blank">
                   <Button className="bg-[#78b49a] text-white hover:bg-[#78b49a]/80 hover:text-white text-md lg:text-xl">
