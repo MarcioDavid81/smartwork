@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
+import { Pencil, Trash } from "lucide-react";
 import { FaSpinner } from "react-icons/fa";
 import {
   Tooltip,
@@ -19,6 +19,17 @@ import { format } from "date-fns";
 import { Subtitle } from "../../_components/Subtitle";
 import { getExamStatus } from "@/utils";
 import { GenerateExamReportModal } from "./GenerateReportModal";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 export default function ExamListTable() {
   const [exams, setExams] = useState<MedicalExam[]>([]);
@@ -29,11 +40,7 @@ export default function ExamListTable() {
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 9;
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-  const [showOnlyActive, setShowOnlyActive] = useState(true);
-
-  function handleGenerateReport(filters: ReportFilters) {
-    generateEmployeeReport(filters);
-  }
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   async function fetchExams() {
     try {
@@ -54,6 +61,11 @@ export default function ExamListTable() {
   function handleOpenEditModal(employee: MedicalExam) {
     setSelectedExam(employee);
     setIsEditModalOpen(true);
+  }
+
+  function handleOpenDeleteDialog(employee: MedicalExam) {
+    setSelectedExam(employee);
+    setIsDeleteModalOpen(true);
   }
 
   function handleCloseEditModal() {
@@ -127,7 +139,7 @@ export default function ExamListTable() {
                       );
                     })()}
                   </td>
-                  <td className="p-2 border-b">
+                  <td className="p-2 flex gap-4">
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
@@ -140,6 +152,40 @@ export default function ExamListTable() {
                         </TooltipTrigger>
                         <TooltipContent>
                           <p>Editar</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <button
+                                onClick={() => handleOpenDeleteDialog(exm)}
+                                className="hover:opacity-80 transition"
+                              >
+                                <Trash size={20} className="text-red-500" />
+                              </button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>
+                                  Tem certeza que deseja excluir?
+                                </AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Esta ação é irreversível e irá
+                                  excluir permanentemente o exame.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel className="bg-gray-50 text-[#78b49a] hover:bg-gray-100 hover:text-[#78b49a] border-2 border-[#78b49a]">Cancel</AlertDialogCancel>
+                                <AlertDialogAction className="bg-[#78b49a] text-white hover:bg-[#78b49a]/80 hover:text-white border-none">Continue</AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Excluir</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
