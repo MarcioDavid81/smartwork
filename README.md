@@ -78,8 +78,8 @@ npx prisma generate
 ```
 
 📦 Variáveis de Ambiente
-```bash
 Configure seu arquivo .env.local com:
+```bash
 DATABASE_URL="sua-url-do-neon-db"
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY="..."
 CLERK_SECRET_KEY="..."
