@@ -9,8 +9,8 @@ import { Switch } from "@/components/ui/switch";
 import { Subtitle } from "../../_components/Subtitle";
 import { generateEmployeeReport } from "@/lib/pdfGenerator";
 import { EditEmployeeButton } from "./EditEmployeeButton";
-import { GenerateReportModal, ReportFilters } from "./GenerateReportModal";
-import { EditEmployeeModal } from "./EditEmployeeModal";
+import { GenerateReportModal, ReportFilters } from "./generateReportModal";
+import { EditEmployeeModal } from "./editEmployeeModal";
 
 
 interface Employee {
