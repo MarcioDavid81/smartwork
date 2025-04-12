@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { GrReturn } from "react-icons/gr";
 import { Title } from "../../_components/Title";
-import EmployeeForm from "../_components/employeeForm";
+import EmployeeForm from "../_components/EmployeeForm";
 
 export default function NewEmployeePage() {
   return (
