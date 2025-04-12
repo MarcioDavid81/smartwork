@@ -11,7 +11,7 @@ export default function NewEmployeePage() {
     <div className="flex flex-col w-full min-h-screen bg-gray-50">
     <div className="min-h-screen flex bg-gray-50">
       {/* Conteúdo principal */}
-      <main className="flex-1 py-4 px-8 text-gray-800">
+      <main className="flex-1 py-4 px-4 md:px-8 text-gray-800">
         <div className="flex justify-between items-center mb-6">
           <Title>Novo Funcionário</Title>
           {/* Botão para retornar para a lista de funcionários */}

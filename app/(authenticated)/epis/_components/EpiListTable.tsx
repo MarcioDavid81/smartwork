@@ -3,26 +3,10 @@
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
 import { FaSpinner } from "react-icons/fa";
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-} from "@/components/ui/dropdown-menu";
-import { Button } from "@/components/ui/button";
-import {
-  Pencil,
-  ArrowDownCircle,
-  ArrowUpCircle,
-  MoreHorizontal,
-} from "lucide-react";
 import { EditEpiModal } from "./EditEpiModal";
 import { EntryEpiModal } from "./EntryEpiModal";
 import { ExitEpiModal } from "./ExitEpiModal";
 import { Epi } from "../../../types";
-
 import { Subtitle } from "../../_components/Subtitle";
 import { Employee } from "@prisma/client";
 import { ActionsDropdownMenu } from "./ActionsDropdownMenu";
@@ -33,7 +17,6 @@ export default function EpisListTable() {
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
   const itemsPerPage = 9;
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
   const [showOnlyActive, setShowOnlyActive] = useState(false);
   const [employeesList, setEmployeesList] = useState<Employee[]>([]);
   const [selectedEpi, setSelectedEpi] = useState<Epi | null>(null);
@@ -95,7 +78,7 @@ export default function EpisListTable() {
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="bg-white rounded-xl shadow-md p-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
         <Subtitle>Lista de EPI's</Subtitle>
         <Input

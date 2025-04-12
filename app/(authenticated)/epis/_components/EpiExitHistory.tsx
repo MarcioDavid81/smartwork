@@ -14,7 +14,6 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { SearchCheck } from "lucide-react";
 
-// Tipo com relacionamentos carregados
 type EpiExitWithRelations = EpiExit & {
   employee: Employee;
   epi: Epi;
@@ -74,7 +73,7 @@ export default function EpiExitHistory({ onDataChange }: EpiExitHistoryProps) {
       setExits(data);
       if (typeof onDataChange === "function") {
         onDataChange(data);
-      } // <- envia os dados pro componente pai
+      }
     } catch (error) {
       console.error(error);
       toast("Falha ao buscar saídas.", {

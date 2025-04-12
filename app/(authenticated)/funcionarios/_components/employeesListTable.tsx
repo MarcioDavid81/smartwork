@@ -88,7 +88,7 @@ export default function EmployeesListTable() {
   );
 
   return (
-    <div className="bg-white rounded-xl shadow-md p-6">
+    <div className="bg-white rounded-xl shadow-md p-4">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-4">
         <div>
           <Subtitle>Funcionários</Subtitle>

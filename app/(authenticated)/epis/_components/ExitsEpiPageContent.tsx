@@ -110,7 +110,7 @@ export default function ExitsEpiPageContent() {
   return (
     <div className="flex flex-col w-full min-h-screen bg-gray-50">
       <div className="min-h-screen flex bg-gray-50">
-        <main className="flex-1 py-4 px-8 text-gray-800">
+        <main className="flex-1 py-4 px-4 md:px-8 text-gray-800">
           <div className="flex justify-between items-center mb-6">
             <Title>Saídas de EPIs</Title>
             <div className="flex gap-4">

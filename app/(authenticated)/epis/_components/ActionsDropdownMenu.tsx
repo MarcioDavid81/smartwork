@@ -15,7 +15,7 @@ import {
   MoreHorizontal,
   Pencil,
 } from "lucide-react";
-import { Epi } from "@/app/types"; // ✅ Importa o tipo certo do teu projeto
+import { Epi } from "@/app/types";
 
 interface ActionsDropdownMenuProps {
   epi: Epi;

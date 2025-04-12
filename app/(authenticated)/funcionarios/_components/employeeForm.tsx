@@ -133,7 +133,7 @@ export default function EmployeeForm() {
   return (
     <motion.form
       onSubmit={handleSubmit}
-      className="bg-white p-6 rounded-xl shadow-md w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-4"
+      className="bg-white p-4 rounded-xl shadow-md w-full h-auto grid grid-cols-1 md:grid-cols-2 gap-4"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
