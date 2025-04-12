@@ -100,7 +100,7 @@ Portfólio: https://bit.ly/3G4w1EE
 📈 Futuras Melhorias
 
 Notificações automáticas para exames vencidos.
-Dashboard com indicadores de saúde ocupacional.
+Integração com API do Gemini para obtenção de informações.
 Integração com e-mail para envio de relatórios.
 Exportação em Excel (XLSX).
 
