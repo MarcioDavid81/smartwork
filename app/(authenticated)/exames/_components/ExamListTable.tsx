@@ -17,14 +17,13 @@ import { EditExamModal } from "./EditExamModal";
 import { MedicalExam } from "@/app/types";
 import { format } from "date-fns";
 import { Subtitle } from "../../_components/Subtitle";
-
+import { getExamStatus } from "@/utils";
+import { GenerateExamReportModal } from "./GenerateReportModal";
 
 export default function ExamListTable() {
   const [exams, setExams] = useState<MedicalExam[]>([]);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [selectedExam, setSelectedExam] = useState<MedicalExam | null>(
-    null
-  );
+  const [selectedExam, setSelectedExam] = useState<MedicalExam | null>(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -62,9 +61,8 @@ export default function ExamListTable() {
     setSelectedExam(null);
   }
 
-  const filteredExams = exams.filter(
-    (exm) =>
-      exm.type.toLowerCase().includes(search.toLowerCase())
+  const filteredExams = exams.filter((exm) =>
+    exm.type.toLowerCase().includes(search.toLowerCase())
   );
 
   const totalPages = Math.ceil(filteredExams.length / itemsPerPage);
@@ -97,10 +95,11 @@ export default function ExamListTable() {
             <thead className="bg-gray-100">
               <tr>
                 <th className="p-2 text-left border-b">Tipo</th>
+                <th className="p-2 text-left border-b">Funcionário</th>
                 <th className="p-2 text-left border-b">Resultado</th>
                 <th className="p-2 text-left border-b">Data</th>
-                <th className="p-2 text-left border-b">Funcionário</th>
                 <th className="p-2 text-left border-b">Vencimento</th>
+                <th className="p-2 text-left border-b">Status</th>
                 <th className="p-2 text-left border-b">Ações</th>
               </tr>
             </thead>
@@ -108,10 +107,26 @@ export default function ExamListTable() {
               {paginatedExams.map((exm) => (
                 <tr key={exm.id} className="hover:bg-gray-50">
                   <td className="p-2 border-b">{exm.type}</td>
-                  <td className="p-2 border-b">{exm.result}</td>
-                  <td className="p-2 border-b">{format(new Date(exm.date), "dd/MM/yyyy")}</td>
                   <td className="p-2 border-b">{exm.employee?.name}</td>
-                  <td className="p-2 border-b">{format(new Date(exm.expiration), "dd/MM/yyyy")}</td>
+                  <td className="p-2 border-b">{exm.result}</td>
+                  <td className="p-2 border-b">
+                    {format(new Date(exm.date), "dd/MM/yyyy")}
+                  </td>
+                  <td className="p-2 border-b">
+                    {format(new Date(exm.expiration), "dd/MM/yyyy")}
+                  </td>
+                  <td className="p-2 border-b">
+                    {(() => {
+                      const status = getExamStatus(exm.expiration);
+                      return (
+                        <span
+                          className={`px-2 py-1 text-xs rounded-full ${status.bg} ${status.text}`}
+                        >
+                          {status.label}
+                        </span>
+                      );
+                    })()}
+                  </td>
                   <td className="p-2 border-b">
                     <TooltipProvider>
                       <Tooltip>
@@ -141,7 +156,10 @@ export default function ExamListTable() {
                 className="bg-white rounded-lg shadow-md p-4 flex flex-col md:flex-row items-start md:items-center justify-between"
               >
                 <div className="text-lg font-semibold text-gray-700 mb-2">
-                  Tipo: {exm.type}                  
+                  Tipo: {exm.type}
+                </div>
+                <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
+                  Funcionário: {exm.employee?.name}
                 </div>
                 <div className="text-sm text-gray-700">
                   Resultado: {exm.result}
@@ -150,19 +168,15 @@ export default function ExamListTable() {
                   Data: {format(new Date(exm.date), "dd/MM/yyyy")}
                 </div>
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                  Funcionário: {exm.employee?.name}
-                </div>
-                <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
                   Vencimento: {format(new Date(exm.expiration), "dd/MM/yyyy")}
                 </div>
                 <div className="flex flex-col md:flex-row items-start md:items-center gap-2">
-                        <button
-                          onClick={() => handleOpenEditModal(exm)}
-                          className="mt-2 text-[#78b49a] text-sm font-medium hover:underline"
-                        >
-                          Editar
-                        </button>
-    
+                  <button
+                    onClick={() => handleOpenEditModal(exm)}
+                    className="mt-2 text-[#78b49a] text-sm font-medium hover:underline"
+                  >
+                    Editar
+                  </button>
                 </div>
               </div>
             ))}
@@ -194,18 +208,24 @@ export default function ExamListTable() {
               )}
               {!loading && exams.length === 0 && (
                 <div>
-                  <p  className="text-sm md:text-md text-gray-500">Nenhum exame encontrado</p>
+                  <p className="text-sm md:text-md text-gray-500">
+                    Nenhum exame encontrado
+                  </p>
                 </div>
               )}
             </div>
           </div>
           {/* Modais */}
-            <EditExamModal
-              isOpen={isEditModalOpen}
-              onClose={handleCloseEditModal}
-              employee={selectedExam}
-              onUpdate={fetchExams}
-            />
+          <EditExamModal
+            isOpen={isEditModalOpen}
+            onClose={handleCloseEditModal}
+            exam={selectedExam}
+            onUpdate={fetchExams}
+          />
+          <GenerateExamReportModal
+            isOpen={isReportModalOpen}
+            onClose={() => setIsReportModalOpen(false)}
+          />
         </>
       )}
     </div>

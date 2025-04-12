@@ -5,14 +5,28 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/u
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { MedicalExam } from "@/app/types";
+import { format } from "date-fns";
 
-export function EditExamModal({ isOpen, onClose, exam, onUpdate }: any) {
+interface EditExamModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  exam: MedicalExam | null;
+  onUpdate: () => void;
+}
 
-  const [formData, setFormData] = useState(exam || {});
+export function EditExamModal({ isOpen, onClose, exam, onUpdate }: EditExamModalProps) {
+
+  const [formData, setFormData] = useState<any>({});
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    setFormData(exam);
+    if (exam) {
+      setFormData({
+        ...exam,
+        expiration: format(new Date(exam.expiration), "yyyy-MM-dd"),
+      });
+    }
   }, [exam]);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
@@ -25,13 +39,15 @@ export function EditExamModal({ isOpen, onClose, exam, onUpdate }: any) {
     setLoading(true);
 
     try {
-      const res = await fetch(`/api/exames/${exam.id}`, {
+      const res = await fetch(`/api/exames/${exam?.id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          type: formData.type,
+          result: formData.result,
+          expiration: formData.expiration,
+        })
       });
-
-      const result = await res.json();
 
       if (!res.ok) {
         toast("Erro ao atualizar exame", {
@@ -75,15 +91,9 @@ export function EditExamModal({ isOpen, onClose, exam, onUpdate }: any) {
           <DialogTitle>Editar Exame</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="grid gap-4 mt-4">
-          <Input name="name" value={formData?.name || ""} onChange={handleChange} placeholder="Nome" />
-          <Input name="phone" value={formData?.phone || ""} onChange={handleChange} placeholder="Telefone" />
-          <Input name="department" value={formData?.department || ""} onChange={handleChange} placeholder="Setor" />
-          <Input name="employer" value={formData?.employer || ""} onChange={handleChange} placeholder="Empregador" />
-          <select name="status" value={formData?.status || "Ativo"} onChange={handleChange} className="border rounded px-3 py-2">
-            <option value="Ativo">Ativo</option>
-            <option value="Inativo">Inativo</option>
-          </select>
-
+          <Input name="type" value={formData?.type || ""} onChange={handleChange} placeholder="Tipo" />
+          <Input name="result" value={formData?.result || ""} onChange={handleChange} placeholder="Resultado" />
+          <Input type="date" name="expiration" value={formData?.expiration || ""} onChange={handleChange} placeholder="Vencimento" />
           <Button className="bg-[#78b49a] text-white hover:bg-[#78b49a]/80" type="submit" disabled={loading}>
             {loading ? "Salvando..." : "Salvar Alterações"}
           </Button>
