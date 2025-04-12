@@ -2,21 +2,15 @@
 
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Pencil } from "lucide-react";
 import { FaSpinner } from "react-icons/fa";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { EditEmployeeModal } from "./editEmployeeModal";
-import { GenerateReportModal, ReportFilters } from "./generateReportModal";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import { Subtitle } from "../../_components/Subtitle";
 import { generateEmployeeReport } from "@/lib/pdfGenerator";
+import { EditEmployeeButton } from "./EditEmployeeButton";
+import { GenerateReportModal, ReportFilters } from "./GenerateReportModal";
+import { EditEmployeeModal } from "./EditEmployeeModal";
 
 interface Employee {
   id: number;
@@ -156,21 +150,8 @@ export default function EmployeesListTable() {
                     </span>
                   </td>
                   <td className="p-2 border-b">
-                    <TooltipProvider>
-                      <Tooltip>
-                        <TooltipTrigger asChild>
-                          <button
-                            onClick={() => handleOpenEditModal(emp)}
-                            className="hover:opacity-80 transition"
-                          >
-                            <Pencil size={20} className="text-[#78b49a]" />
-                          </button>
-                        </TooltipTrigger>
-                        <TooltipContent>
-                          <p>Editar</p>
-                        </TooltipContent>
-                      </Tooltip>
-                    </TooltipProvider>
+                    {/* Botão de edição */}
+                  <EditEmployeeButton onClick={() => handleOpenEditModal(emp)} />
                   </td>
                 </tr>
               ))}

@@ -2,8 +2,9 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Title } from "../_components/Title";
-import CreateEmployeeButton from "./_components/createEmployee";
-import EmployeesListTable from "./_components/employeesListTable";
+import EmployeesListTable from "./_components/EmployeesListTable";
+import CreateEmployeeButton from "./_components/CreateEmployee";
+
 
 export const metadata: Metadata = {
     title: "Funcionarios",

@@ -1,5 +1,5 @@
 import React from "react";
-import EmployeeForm from "../_components/employeeForm";
+import EmployeeForm from "../_components/EmployeeForm";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { GrReturn } from "react-icons/gr";

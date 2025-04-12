@@ -25,6 +25,7 @@ import { Epi } from "../../../types";
 
 import { Subtitle } from "../../_components/Subtitle";
 import { Employee } from "@prisma/client";
+import { ActionsDropdownMenu } from "./ActionsDropdownMenu";
 
 export default function EpisListTable() {
   const [epis, setEpis] = useState<Epi[]>([]);
@@ -139,31 +140,12 @@ export default function EpisListTable() {
                   </td>
                   <td className="p-2 border-b">{epi.quantity}</td>
                   <td className="p-2 border-b">
-                    <DropdownMenu>
-                      <DropdownMenuTrigger asChild>
-                        <Button variant="ghost" size="icon">
-                          <MoreHorizontal className="h-5 w-5" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent align="end">
-                        <DropdownMenuLabel>
-                          Ações em {epi.name}
-                        </DropdownMenuLabel>
-                        <DropdownMenuSeparator />
-                        <DropdownMenuItem onClick={() => handleEdit(epi)}>
-                          <Pencil className="mr-2 h-4 w-4" />
-                          Editar
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleEntry(epi)}>
-                          <ArrowDownCircle className="mr-2 h-4 w-4" />
-                          Entrada
-                        </DropdownMenuItem>
-                        <DropdownMenuItem onClick={() => handleExit(epi)}>
-                          <ArrowUpCircle className="mr-2 h-4 w-4" />
-                          Saída
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu>
+                    <ActionsDropdownMenu
+                      epi={epi}
+                      onEdit={handleEdit}
+                      onEntry={handleEntry}
+                      onExit={handleExit}
+                    />
                   </td>
                 </tr>
               ))}
@@ -198,29 +180,12 @@ export default function EpisListTable() {
                 </div>
                 <div className="flex flex-col">
                   <span className="font-semibold">Ações:</span>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon">
-                        <MoreHorizontal className="h-5 w-5" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuLabel>Ações em {epi.name}</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem onClick={() => handleEdit(epi)}>
-                        <Pencil className="mr-2 h-4 w-4" />
-                        Editar
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleEntry(epi)}>
-                        <ArrowDownCircle className="mr-2 h-4 w-4" />
-                        Entrada
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onClick={() => handleExit(epi)}>
-                        <ArrowUpCircle className="mr-2 h-4 w-4" />
-                        Saída
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                  <ActionsDropdownMenu
+                      epi={epi}
+                      onEdit={handleEdit}
+                      onEntry={handleEntry}
+                      onExit={handleExit}
+                    />
                 </div>
               </div>
             ))}
