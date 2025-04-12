@@ -23,7 +23,7 @@ const pages = [
     icon: <FaHouseUser size={20} />,
   },
   {
-    name: "Depoimnetos",
+    name: "Depoimentos",
     url: "#depoimentos",
     icon: <FaCommentAlt size={20} />,
   },
@@ -36,7 +36,7 @@ const pages = [
     name: "Contato",
     url: "#contato",
     icon: <MdOutlineEmail size={20} />,
-  }
+  },
 ];
 
 export default function Navbar() {
@@ -84,7 +84,14 @@ export default function Navbar() {
     >
       <div className="container flex justify-between items-center">
         <Link href="/">
-          <Image src="/logo2.png" className="z-30" priority={true} alt="Logo" width={140} height={340} />
+          <Image
+            src="/logo2.png"
+            className="z-30"
+            priority={true}
+            alt="Logo"
+            width={140}
+            height={340}
+          />
         </Link>
         {/* ALTERA O ÍCONE DO MENU DE ACORDO COM O ESTADO */}
         {isMenuMobileOpen ? (
@@ -110,7 +117,7 @@ export default function Navbar() {
         )}
         {/* MENU DESKTOP */}
         <nav className="hidden md:flex md:justify-center md:items-center gap-4">
-          <ul className="flex gap-4 text-md lg:text-xl text-white">
+          <ul className="flex gap-4 text-md lg:text-xl ">
             {pages.map((page) => (
               <li
                 key={page.url}
@@ -118,9 +125,9 @@ export default function Navbar() {
               >
                 <a
                   href={page.url}
-                  className={`${
-                    path === page.url ? "text-black" : ""
-                  } ${scrolled ? "text-black" : ""} hover:text-black`}
+                  className={`${path === page.url ? "text-black" : "text-gray-50"} ${
+                    scrolled ? "text-black" : ""
+                  } hover:text-gray-50`}
                 >
                   {page.name}
                 </a>
@@ -153,7 +160,10 @@ export default function Navbar() {
           <ul className="flex flex-col items-start justify-start h-full gap-6 pl-4 pt-20 text-xl text-white">
             {pages.map((page) => (
               <li key={page.url}>
-                <Link href={page.url} className="text-[#78b49a] flex items-center gap-2">
+                <Link
+                  href={page.url}
+                  className="text-[#78b49a] flex items-center gap-2"
+                >
                   {page.icon}
                   {page.name}
                 </Link>
@@ -161,8 +171,17 @@ export default function Navbar() {
             ))}
             <Link href="/login" className="mt-10">
               <Button className="bg-[#78b49a] text-white text-md lg:text-xl hover:bg-[#78b49a]/80 hover:text-white/80">
-                <UserIcon className="mr-2" />
-                Entrar
+                {userId ? (
+                  <div className="flex items-center">
+                    <UserIcon className="mr-2" />
+                    Dashboard
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <LogIn className="mr-2" />
+                    Login
+                  </div>
+                )}
               </Button>
             </Link>
           </ul>
