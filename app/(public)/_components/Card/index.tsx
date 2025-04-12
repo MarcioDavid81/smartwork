@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 const Card = ({ title, description, imageUrl, delay = 0 }: any) => {
   return (
-    <motion.div className="bg-white rounded-xl shadow-md overflow-hidden"
+    <motion.div className="bg-white rounded-xl shadow-md overflow-hidden min-h-[450px]"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}

@@ -4,6 +4,8 @@ import Hero from "./_components/Hero";
 import Navbar from "./_components/Navbar";
 import { Metadata } from "next";
 import Card from "./_components/Card";
+import Planos from "./_components/Plans";
+import Beneficios from "./_components/Benefits";
 
 export const metadata: Metadata = {
   keywords: ["saúde ocupacional", "gestão de saúde", "segurança no trabalho"],
@@ -54,8 +56,8 @@ export default function Home() {
       <Navbar />
       <div className="min-h-screen bg-white text-gray-800">
         <Hero />
-        <main className="px-6 py-12 max-w-4xl mx-auto space-y-16">
-          <section className="space-y-8">
+        <main className="py-12 mx-auto space-y-16">
+          <section className="grid md:grid-cols-2 container gap-4 items-center justify-center">
             {CARDCONTENT.map((card, index) => (
               <Card
                 key={index}
@@ -66,7 +68,6 @@ export default function Home() {
               />
             ))}
           </section>
-
           <section className="text-center">
             <p className="text-lg font-medium">
               Conscientização é o primeiro passo para um ambiente seguro.
