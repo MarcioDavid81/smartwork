@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { Title } from "../_components/Title";
 import CreateExamButton from "./_components/CreateExamButton";
 import ExamListTable from "./_components/ExamListTable";
+import { WorkerAssistantButton } from "./_components/WorkerAssistant";
 
 export const metadata: Metadata = {
   title: "Exames",
@@ -26,8 +27,12 @@ export default async function Exames() {
         <main className="flex-1 py-4 px-4 md:px-8 text-gray-800">
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <Title>Exames</Title>
-            {/* Botão para criar exame */}
-            <CreateExamButton />
+            <div className="flex gap-4">
+              {/* Botão para criar exame */}
+              <WorkerAssistantButton />
+              {/* Botão para abrir o assistente */}
+              <CreateExamButton />
+            </div>
           </div>
           {/* Tabela de exames */}
           <ExamListTable />
