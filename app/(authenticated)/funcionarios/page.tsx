@@ -2,8 +2,8 @@ import { auth } from "@clerk/nextjs/server";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { Title } from "../_components/Title";
-import EmployeesListTable from "./_components/EmployeesListTable";
 import CreateEmployeeButton from "./_components/CreateEmployee";
+import EmployeesListTable from "./_components/EmployeesListTable";
 
 
 export const metadata: Metadata = {
