@@ -50,7 +50,7 @@ O sistema é dividido em 3 módulos principais:
 
 ```bash
 # Clone o repositório
-git clone https://github.com/seu-usuario/smartwork.git
+git clone https://github.com/MarcioDavid81/smartwork.git
 
 # Acesse a pasta
 cd smartwork
