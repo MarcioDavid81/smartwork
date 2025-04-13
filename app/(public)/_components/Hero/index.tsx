@@ -13,7 +13,7 @@ const Hero = () => {
               <h1 className="text-5xl md:text-7xl lg:text-9xl font-bold text-gray-50">
                 Smart Work 
               </h1>
-              <span className="block text-xl md:text-3xl lg:text-5xl text-gray-50">Sistema de Gestão da Saúde Ocupacional</span>
+              <span className="block text-lg md:text-3xl lg:text-5xl text-gray-50">Sistema de Gestão da Saúde Ocupacional</span>
               <div className="mt-10">
                 <Link href="https://www.wa.me/5555997116476" target="_blank">
                   <Button className="bg-[#78b49a] text-white hover:bg-[#78b49a]/80 hover:text-white text-md lg:text-xl">
