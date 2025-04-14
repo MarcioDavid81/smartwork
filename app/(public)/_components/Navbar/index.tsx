@@ -80,7 +80,7 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 w-full z-50 py-4 bg-gray-50 md:bg-transparent transition-all duration-300
-        ${scrolled ? "md:bg-gray-50/50 md:backdrop-blur-sm md:shadow-md" : ""}`}
+        ${scrolled ? "md:bg-gray-50  md:shadow-md" : ""}`}
     >
       <div className="container flex justify-between items-center">
         <Link href="/">
@@ -89,7 +89,7 @@ export default function Navbar() {
             className="z-30"
             priority={true}
             alt="Logo"
-            width={140}
+            width={200}
             height={340}
           />
         </Link>
@@ -125,9 +125,9 @@ export default function Navbar() {
               >
                 <a
                   href={page.url}
-                  className={`${path === page.url ? "text-black" : "text-gray-50"} ${
-                    scrolled ? "text-black" : ""
-                  } hover:text-gray-50`}
+                  className={`${path === page.url ? "text-black" : ""} ${
+                    scrolled ? "text-black hover:text-gray-500" : ""
+                  }`}
                 >
                   {page.name}
                 </a>

@@ -4,6 +4,8 @@ import { redirect } from "next/navigation";
 import { Title } from "../_components/Title";
 import DashboardPage from "./_components/DashboardPageContent";
 import DashboardRecharts from "./_components/DashboardRecharts";
+import { useUser } from "@clerk/nextjs";
+import Congratulations from "./_components/Congratulations";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -27,8 +29,9 @@ export default async function Dashboard() {
     <div className="min-h-screen  w-full flex bg-gray-50">
       {/* Conteúdo principal */}
       <main className="flex-1 py-4 px-4 md:px-8 text-gray-800">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex flex-col items-start md:flex-row justify-between mb-6">
           <Title>Dashboard</Title>
+          <Congratulations />
         </div>
         <DashboardPage />
         <DashboardRecharts />

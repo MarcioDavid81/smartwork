@@ -6,7 +6,7 @@ import { FaLongArrowAltRight } from "react-icons/fa";
 const Hero = () => {
     return (
         <>
-          <div className="relative flex items-center  h-screen overflow-hidden z-10 bg-secondary hero">
+          <div className="relative flex items-center w-full  h-screen overflow-hidden z-10 bg-secondary hero">
             {/* Overlay de background */}
             <div className="absolute inset-0 bg-[#78b49a] opacity-50 z-20"></div>
             <div className="container flex flex-col items-center md:items-start gap-4 z-30">
@@ -26,9 +26,8 @@ const Hero = () => {
             <Image
               src="/bg-hero.jpg"
               alt="Smart Work"
-              width={800}
-              height={400}
-              className="absolute top-0 object-cover z-0 w-full h-full"
+              fill
+              className="object-cover z-0"
             />
             {/* Ondulação decorativa na parte inferior */}
             <div className="absolute bottom-0 left-0 right-0 z-20">

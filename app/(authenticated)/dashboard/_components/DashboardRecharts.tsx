@@ -57,9 +57,9 @@ export default function DashboardRecharts() {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+    <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6">
       {/* Gráfico de EPIs */}
-      <Card className="md:col-span-2">
+      <Card className="md:col-span-3">
         <CardContent className="p-6">
           <Subtitle>Estoque de EPIs</Subtitle>
           <ResponsiveContainer width="100%" height={300}>

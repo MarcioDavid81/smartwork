@@ -11,6 +11,7 @@ import { generateEmployeeReport } from "@/lib/pdfGenerator";
 import { EditEmployeeButton } from "./EditEmployeeButton";
 import { GenerateReportModal, ReportFilters } from "./generateReportModal";
 import { EditEmployeeModal } from "./editEmployeeModal";
+import { GenerateEpiSheetButton } from "./GenerateEpiSheetButton";
 
 
 interface Employee {
@@ -129,7 +130,7 @@ export default function EmployeesListTable() {
                 <th className="p-2 text-left border-b">Setor</th>
                 <th className="p-2 text-left border-b">Empregador</th>
                 <th className="p-2 text-left border-b">Status</th>
-                <th className="p-2 text-left border-b">Ações</th>
+                <th className="p-2 text-center border-b">Ações</th>
               </tr>
             </thead>
             <tbody>
@@ -150,9 +151,10 @@ export default function EmployeesListTable() {
                       {emp.status}
                     </span>
                   </td>
-                  <td className="p-2 border-b">
+                  <td className="p-2 border-b flex justify-center gap-4">
                     {/* Botão de edição */}
                   <EditEmployeeButton onClick={() => handleOpenEditModal(emp)} />
+                  <GenerateEpiSheetButton employeeId={emp.id} />
                   </td>
                 </tr>
               ))}
@@ -187,12 +189,15 @@ export default function EmployeesListTable() {
                     {emp.status}
                   </span>
                 </div>
-                <button
-                  onClick={() => handleOpenEditModal(emp)}
-                  className="mt-2 text-[#78b49a] text-sm font-medium hover:underline"
-                >
-                  Editar
-                </button>
+                <div className="flex justify-between">
+                  <button
+                    onClick={() => handleOpenEditModal(emp)}
+                    className="mt-2 text-[#78b49a] text-sm font-medium hover:underline"
+                  >
+                    Editar
+                  </button>
+                  <GenerateEpiSheetButton employeeId={emp.id} />
+                </div>
               </div>
             ))}
           </div>

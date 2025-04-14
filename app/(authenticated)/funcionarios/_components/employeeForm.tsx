@@ -98,7 +98,6 @@ export default function EmployeeForm() {
       const result = await res.json();
 
       if (!res.ok) {
-        alert(result.message || "Erro ao cadastrar");
         toast("Erro ao cadastrar funcionário", {
           style: {
             backgroundColor: "#f87171",
