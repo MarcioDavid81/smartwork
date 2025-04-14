@@ -126,7 +126,7 @@ export default function EmployeeForm() {
         icon: "❌",
       });
     } finally {
-      setIsSubmitting(false); // Re-enable the button after submission
+      setIsSubmitting(false);
     }
   }
 

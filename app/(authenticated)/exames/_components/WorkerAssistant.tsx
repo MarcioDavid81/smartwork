@@ -1,11 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { Bot, Send } from "lucide-react";
+import { toast } from "sonner";
+import { format } from "date-fns";
 
 export function WorkerAssistantButton() {
   const [isOpen, setIsOpen] = useState(false);
@@ -13,17 +20,51 @@ export function WorkerAssistantButton() {
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
 
-  function handleSend() {
-    setLoading(true);
-    setResponse("Worker está pensando...");
+  async function handleSend() {
+    if (!question.trim()) return;
 
-    // Aqui futuramente chamamos a API do Gemini
-    setTimeout(() => {
-      setResponse(
-        "Você tem 3 exames vencendo em breve:\n\n- João Silva: Hemograma (vence em 22/04/2025)\n- Ana Paula: Audiometria (vence em 26/04/2025)\n- Carlos Mendes: Espirometria (vence em 29/04/2025)\n\nSugestão: Agendar exames nos próximos 10 dias."
-      );
+    setLoading(true);
+    setResponse("Worker está analisando os dados...");
+
+    try {
+      // 1. Busca exames da API
+      const resExams = await fetch("/api/exames");
+      const exams = await resExams.json();
+
+      if (!resExams.ok) {
+        throw new Error("Erro ao buscar exames.");
+      }
+
+      // 2. Monta um contexto com os exames
+      const context = exams
+        .map(
+          (exam: any) =>
+            `Funcionário: ${exam.employee?.name}, Exame: ${exam.type}, Vencimento: ${format(
+              new Date(exam.expiration),
+              "dd/MM/yyyy"
+            )}`
+        )
+        .join("\n");
+
+      // 3. Envia para a rota interna /api/worker
+      const res = await fetch("/api/worker", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question,
+          context
+        })
+      });
+
+      const data = await res.json();
+      setResponse(data.text || "Worker não conseguiu uma resposta.");
+    } catch (err) {
+      console.error("Erro:", err);
+      toast.error("Erro ao se comunicar com o Worker.");
+      setResponse("Ocorreu um erro ao tentar consultar o Worker.");
+    } finally {
       setLoading(false);
-    }, 3000);
+    }
   }
 
   return (
