@@ -64,7 +64,7 @@ export function GenerateReportModal({
                 <SelectValue placeholder="Selecione o empregador" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="Glênio">Glênio</SelectItem>
+                <SelectItem value="Glenio">Glenio</SelectItem>
                 <SelectItem value="Guilhermo">Guilhermo</SelectItem>
                 <SelectItem value="Vagner">Vagner</SelectItem>
                 <SelectItem value="Valmor">Valmor</SelectItem>
