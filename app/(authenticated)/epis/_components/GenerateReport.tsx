@@ -19,6 +19,7 @@ export const GenerateReport = async () => {
       }
   
       const doc = new jsPDF();
+      const primaryColor = "#78b49a";
   
       // Carregar logo
       const getImageBase64 = async (url: string) => {
@@ -59,7 +60,7 @@ export const GenerateReport = async () => {
           new Date(exit.date).toLocaleDateString("pt-BR"),
         ]),
         headStyles: {
-          fillColor: [120, 180, 154],
+          fillColor: primaryColor,
           textColor: 255,
           halign: "left",
           fontStyle: "bold",

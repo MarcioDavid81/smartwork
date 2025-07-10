@@ -12,8 +12,10 @@ export interface Epi {
   export interface Employee {
     id: number;
     name: string;
+    admission: Date;
     phone: string;
-    department: string;
+    departament: string;
+    function: string;
     employer: string;
     status: string;
     userId?: string;
@@ -35,6 +37,7 @@ export interface Epi {
     epiId: number;
     epi: {
       name: string;
+      certificationNumber: number;
     };
     employeeId: number;
     employee: {

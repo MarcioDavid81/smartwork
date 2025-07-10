@@ -1,6 +1,7 @@
 import jsPDF from "jspdf";
 import autoTable from "jspdf-autotable";
 import dayjs from "dayjs";
+import { Employee, EpiExit } from "@/app/types";
 
 // Converte imagem em base64
 async function getBase64ImageFromUrl(imageUrl: string): Promise<string> {
@@ -15,15 +16,18 @@ async function getBase64ImageFromUrl(imageUrl: string): Promise<string> {
   });
 }
 
-export async function generateEpiSheetPDF(data: any) {
+interface EpiSheetPDFData {
+  employee: Employee;
+  epiExits: EpiExit[];
+}
+
+export async function generateEpiSheetPDF(data: EpiSheetPDFData) {
   const doc = new jsPDF({ orientation: "landscape" });
 
-  const {
-    employee: { name, id, admission, function: role, departament },
-    epiExits,
-  } = data;
+  const employee: Employee = data.employee;
+  const epiExits: EpiExit[] = data.epiExits;
 
-  const admissionDate = dayjs(admission).format("DD/MM/YYYY");
+  const admissionDate = dayjs(employee.admission).format("DD/MM/YYYY");
   const currentDate = dayjs().format("DD/MM/YYYY HH:mm");
   const primaryColor = "#78b49a";
 
@@ -39,10 +43,10 @@ export async function generateEpiSheetPDF(data: any) {
   // Dados do funcionário
   doc.setFontSize(10);
   doc.setTextColor(0);
-  doc.text(`NOME: ${name}`, 10, 40);
-  doc.text(`Nº DE REGISTRO: ${id}`, 200, 40);
-  doc.text(`FUNÇÃO: ${role}`, 10, 47);
-  doc.text(`SEÇÃO: ${departament}`, 100, 47);
+  doc.text(`NOME: ${employee.name}`, 10, 40);
+  doc.text(`Nº DE REGISTRO: ${employee.id}`, 200, 40);
+  doc.text(`FUNÇÃO: ${employee.function}`, 10, 47);
+  doc.text(`SEÇÃO: ${employee.departament}`, 100, 47);
   doc.text(`DATA ADMISSÃO: ${admissionDate}`, 200, 47);
 
   // Declaração
@@ -52,18 +56,20 @@ export async function generateEpiSheetPDF(data: any) {
   doc.text("Declaro estar ciente de que terei que devolvê-los caso ocorra meu desligamento da empresa.", 10, 70);
   doc.setFontSize(12)
   doc.setFont("helvetica", "bold");
-  doc.text("DATA: ________/________/________    ASSINATURA DO FUNCIONÁRIO _________________________________", 10, 78);
+  doc.text("DATA: ________/________/________    ASSINATURA DO FUNCIONÁRIO _________________________________", 10, 80);
 
+  console.log(epiExits.map((e: EpiExit) => e.epi));
+  console.log(employee);
   // Tabela
   autoTable(doc, {
     startY: 90,
     head: [["DATA", "QUANT.", "UNID.", "DESCRIÇÃO DO EQUIPAMENTO", "N° DO C.A.", "ASSINATURA"]],
-    body: epiExits.map((exit: any) => [
+    body: epiExits.map((exit: EpiExit) => [
       dayjs(exit.date).format("DD/MM/YYYY"),
       exit.quantity,
       "UN",
       exit.epi.name,
-      exit.epi.certification,
+      exit.epi.certificationNumber,
       "",
     ]),
     styles: {
@@ -71,7 +77,7 @@ export async function generateEpiSheetPDF(data: any) {
       cellPadding: 2,
     },
     headStyles: {
-      fillColor: [120, 180, 154],
+      fillColor: primaryColor,
     },
     theme: "grid",
     margin: { left: 10, right: 10 },
@@ -94,5 +100,5 @@ export async function generateEpiSheetPDF(data: any) {
     },
   });
 
-  doc.save(`Ficha de EPI ${name.replace(/\s/g, " ").toUpperCase()}.pdf`);
+  doc.save(`Ficha de EPI de ${employee.name.replace(/\s/g, " ").toUpperCase()}.pdf`);
 }

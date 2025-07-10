@@ -38,6 +38,7 @@ export default function ExitsEpiPageContent() {
     }
 
     const doc = new jsPDF();
+    const primaryColor = "#78b49a";
 
     const getImageBase64 = async (url: string) => {
       const res = await fetch(url);
@@ -74,7 +75,7 @@ export default function ExitsEpiPageContent() {
         new Date(exit.date).toLocaleDateString("pt-BR"),
       ]),
       headStyles: {
-        fillColor: [120, 180, 154],
+        fillColor: primaryColor,
         textColor: 255,
         halign: "left",
         fontStyle: "bold",
